@@ -1,0 +1,9 @@
+*.meta
+/Library
+/Temp
+/Logs
+/.vs
+*.csproj
+*.sln
+.vscode
+.DS_Store
