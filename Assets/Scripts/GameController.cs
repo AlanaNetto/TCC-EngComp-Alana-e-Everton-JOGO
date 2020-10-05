@@ -11,10 +11,13 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController gameController;
+
+    private string APIUrl = "http://tcc-alana-everton.us-south.cf.appdomain.cloud/solution";
     public List<Trash> trashList;
     public List<GameObject> screenList;
     CharacterController character;
-    
+
+    private string solutionID;
 
     void Start () {
         character = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
@@ -54,7 +57,7 @@ public class GameController : MonoBehaviour
         string uploadResult = null;
         
         try{
-            uploadResult = await UploadImage("https://tcc-alana.free.beeceptor.com/actions", image);
+            uploadResult = await UploadImage(image);
             screenList.Find(s => s.name == "Loading Screen").SetActive(false);
             await Task.Delay(TimeSpan.FromSeconds(1));
             await ExecuteSolution(ConvertSolution(uploadResult));
@@ -82,6 +85,9 @@ public class GameController : MonoBehaviour
                 Debug.Log(trashCount + " lixo(s) não foram descartados corretamente");
                 return;
             }
+
+            await UpdateCorrectSolution(solutionID);
+            solutionID = "";
             PlayerPrefs.SetInt(SceneManager.GetActiveScene().name+"Resolved",1);
             screenList.Find(s => s.name == "Success Screen").SetActive(true);
             Debug.Log("Fase Completada com sucesso!");
@@ -96,15 +102,32 @@ public class GameController : MonoBehaviour
         }
     }
 
-    async Task<string> UploadImage(string url,byte[] image)
+    async Task<string> UploadImage(byte[] image)
     {
         WWWForm form = new WWWForm();
-        form.AddBinaryData("solution", image, "solution.png", "image/png");
-        var postRequest = UnityWebRequest.Post(url,form);
+        form.AddBinaryData("image", image, "solution.png", "image/png");
+        form.AddField("childInfo", "{" + $"\"name\":\"{PlayerPrefs.GetString("username")}\", \"age\":\"{PlayerPrefs.GetString("userage")}\"" + "}");
+        form.AddField("deviceID", SystemInfo.deviceUniqueIdentifier);
+        var postRequest = UnityWebRequest.Post(APIUrl,form);
         await postRequest.SendWebRequest();
         if(postRequest.isNetworkError || postRequest.isHttpError)
             throw new Exception("Erro ao enviar imagem");
         return postRequest.downloadHandler.text;
+    }
+
+    async Task<string> UpdateCorrectSolution(string solutionID){
+
+        WWWForm form = new WWWForm();
+        form.AddField("childInfo", "{" + $"\"name\":\"{PlayerPrefs.GetString("username")}\", \"age\":\"{PlayerPrefs.GetString("userage")}\"" + "}");
+        form.AddField("solutionID",solutionID);
+        form.AddField("correctSolution","true");
+
+        var putRequest = UnityWebRequest.Put(APIUrl,form.data);
+        putRequest.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        await putRequest.SendWebRequest();
+        if(putRequest.isNetworkError || putRequest.isHttpError)
+            throw new Exception("Erro ao atualizar solução");
+        return putRequest.downloadHandler.text;
     }
 
     async Task ExecuteSolution(List<Block> blocks){
@@ -199,6 +222,7 @@ public class GameController : MonoBehaviour
                     blocks.Add(APIResult.blocks[i]);
                 }
             }
+            solutionID = APIResult.solutionID;
             return blocks;
         }
         catch (Exception e)

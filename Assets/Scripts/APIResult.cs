@@ -6,5 +6,6 @@ using UnityEngine;
 [Serializable]
 public class APIResult
 {
+    public string solutionID;
     public List<Block> blocks;
 }
