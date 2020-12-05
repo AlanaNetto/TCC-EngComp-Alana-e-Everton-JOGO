@@ -5,6 +5,11 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public float stepSize;
+    public bool canMakeActions = true;
+
+    public void CarCrash(){
+        canMakeActions = false;
+    }
 
     public void Walk(){
         this.transform.Translate(stepSize,0,0);

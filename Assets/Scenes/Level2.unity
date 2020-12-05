@@ -5431,6 +5431,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1140183454, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140183454, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 606acb3fad43041f6be2b649ce219aae, type: 2}
     - target: {fileID: 1812656961147343618, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -5483,6 +5491,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4399843442596364034, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
+      propertyPath: m_Text
+      value: 'Dica: Tente usar o bloco de virar'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4646651651733674072, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe078ce37e62b4a7dac04ff484da302f, type: 3}
     - target: {fileID: 5938370719493549111, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
       propertyPath: trashList.Array.size
       value: 1
@@ -5491,6 +5507,10 @@ PrefabInstance:
       propertyPath: trashList.Array.data[0]
       value: 
       objectReference: {fileID: 1555394206}
+    - target: {fileID: 6277235821985518493, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
+      propertyPath: m_Name
+      value: Block
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
 --- !u!1001 &4971841315103996068

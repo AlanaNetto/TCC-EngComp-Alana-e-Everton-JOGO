@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class DeviceCameraController : MonoBehaviour
 {
@@ -59,6 +61,9 @@ public class DeviceCameraController : MonoBehaviour
 
         //Ativa a tela de Loading
         LoadingScreen.SetActive(true);
+
+        File.WriteAllBytes(Application.persistentDataPath + "/image.png", tex.EncodeToPNG());
+        
 
         //Gera o PNG da imagem capturada e envia para o servidor
         GameController.gameController.SendSolutionToServer(tex.EncodeToPNG());

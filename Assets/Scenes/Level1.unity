@@ -5378,10 +5378,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    - target: {fileID: 2899799929218292390, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level2
-      objectReference: {fileID: 0}
     - target: {fileID: 3465771118329918447, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 705.00446
@@ -5425,10 +5421,6 @@ PrefabInstance:
     - target: {fileID: 3465771118329918447, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5938370719493549111, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
-      propertyPath: trashList.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5938370719493549111, guid: 58355ab46285b4484aec85376bb31e62, type: 3}
       propertyPath: trashList.Array.data[0]

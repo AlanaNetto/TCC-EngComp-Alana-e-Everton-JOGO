@@ -13,8 +13,10 @@ public class GameController : MonoBehaviour
     public static GameController gameController;
 
     private string APIUrl = "http://tcc-alana-everton.us-south.cf.appdomain.cloud/solution";
+    // private string APIUrl = "https://tcc-alana.free.beeceptor.com/actions";
     public List<Trash> trashList;
     public List<GameObject> screenList;
+    public List<Obstacle> obstacleList;
     CharacterController character;
 
     private string solutionID;
@@ -52,6 +54,7 @@ public class GameController : MonoBehaviour
     public void LoadScene(string LevelName){
         SceneManager.LoadScene(LevelName);
     }
+    
     async public void SendSolutionToServer(byte[] image){
         
         string uploadResult = null;
@@ -133,22 +136,34 @@ public class GameController : MonoBehaviour
     async Task ExecuteSolution(List<Block> blocks){
         foreach (var block in blocks)
         {
-            await ExecuteAction(block);
+            if(character.canMakeActions)
+                await ExecuteAction(block);
         }
     }
 
     async Task ExecuteAction(Block b){
-        
-
         switch (b.name)
         {
             case "Walk": 
                 character.Walk(); 
+                foreach(var obstacle in obstacleList){
+                    obstacle.ExecuteAction();
+                }
                 await Task.Delay(TimeSpan.FromSeconds(1));
             break;
             
             case "Turn": 
                 character.Turn90(); 
+                foreach(var obstacle in obstacleList){
+                    obstacle.ExecuteAction();
+                }
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            break;
+
+            case "Wait": 
+                foreach(var obstacle in obstacleList){
+                    obstacle.ExecuteAction();
+                }
                 await Task.Delay(TimeSpan.FromSeconds(1));
             break;
             
@@ -161,13 +176,14 @@ public class GameController : MonoBehaviour
             break;
         }
     }
-
+    
     async Task ExecuteLoop(Loop p){
         for (int i = 0; i < p.repeatTimes; i++)
         {
             foreach (var block in p.blocks)
             {
-                await ExecuteAction(block);
+                if(character.canMakeActions)
+                    await ExecuteAction(block);
             }
         }
     }

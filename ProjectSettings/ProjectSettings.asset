@@ -247,8 +247,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/Alana/Desktop/Alana/Faculdade/TCC/Unity/user_keystore.keystore
-  AndroidKeyaliasName: br.com.tcc.alanaeverton
+  AndroidKeystoreName: /Users/Alana/Desktop/Alana/Faculdade/TCC/Unity/user.keystore
+  AndroidKeyaliasName: com.alanaeverton.resiklaj
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
